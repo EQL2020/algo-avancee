@@ -6,7 +6,7 @@ public class RechercheDichotomique {
 		// initialisation :
 		
 		String[] noms = {"Azkaban", "Bobba", "Edwige", "Ermione", "Fili", "Frodon", "Gandalf", "Gimli", "Golum", "Han solo", "Mithrandir"};
-		String recherche = "Fili";
+		String recherche = "Han solo";
 		
 		int debut = 0;
 		int fin = noms.length;	
@@ -15,8 +15,7 @@ public class RechercheDichotomique {
 		
 		
 		// traitement :
-		
-		while(!trouve && !rechercheTerminee)
+		do
 		{
 			System.out.print("portion de " + debut + " à " + fin + " : ");
 			int milieu = (debut + fin) / 2;
@@ -44,6 +43,7 @@ public class RechercheDichotomique {
 				rechercheTerminee = true;
 			}
 		}
+		while(!trouve && !rechercheTerminee);
 		
 		if (!trouve)
 		{
