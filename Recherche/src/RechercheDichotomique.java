@@ -3,27 +3,56 @@ public class RechercheDichotomique {
 
 	public static void main(String[] args) {
 
-
-		String s1 = "Benoit";
-		String s2 = "Zoe";
-
-		// s1.compareTo(s2) :
-		// 0   si s1 = s2
-		// <0  si s1 < s2
-		// >0  si s1 > s2
+		// initialisation :
 		
-		if(s1.compareTo(s2) > 0)
+		String[] noms = {"Azkaban", "Bobba", "Edwige", "Ermione", "Fili", "Frodon", "Gandalf", "Gimli", "Golum", "Han solo", "Mithrandir"};
+		String recherche = "Fili";
+		
+		int debut = 0;
+		int fin = noms.length;	
+		boolean trouve = false; // flag 
+		boolean rechercheTerminee = false; // flag
+		
+		
+		// traitement :
+		
+		while(!trouve && !rechercheTerminee)
 		{
-			System.out.println(s1 + " est plus grand que " + s2);
+			System.out.print("portion de " + debut + " à " + fin + " : ");
+			int milieu = (debut + fin) / 2;
+			
+			if (recherche.equals(noms[milieu]))
+			{
+				System.out.println("Touvé !!! indice : " + milieu);
+				trouve = true;
+			}
+			
+			if (noms[milieu].compareTo(recherche) < 0)
+			{
+				System.out.println(" plus grand que " + noms[milieu]);
+				debut = milieu + 1;
+			}
+			
+			if (noms[milieu].compareTo(recherche) > 0)
+			{
+				System.out.println(" plus petit que " + noms[milieu]);
+				fin = milieu;
+			}
+			
+			if (fin == -1 || debut == noms.length || debut == fin)
+			{
+				rechercheTerminee = true;
+			}
 		}
-		else if (s1.compareTo(s2) == 0)
+		
+		if (!trouve)
 		{
-			System.out.println(s1 + " est égal à " + s2);
+			System.out.println("Elément non trouvé...");
 		}
-		else
-		{
-			System.out.println(s1 + " est plus petit que " + s2);
-		}
+		
+		
+		
+		
 	}
 
 }
