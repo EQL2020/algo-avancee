@@ -4,13 +4,17 @@ public class AppJustification {
 	// ------------
 	
 	static int tailleMarges = 5;
-	static int tailleLigne = 120;
-	static String texteAJustifier = "    le   petit  chat est gris    ";
+	static int tailleLigneComplete = 120;
+	static int tailleLigneUtile = tailleLigneComplete - (2 * tailleMarges);
+	static String texteAJustifier = "    le   petit  chat est rouge    ";
 
 	static char[] tableauEntree;
 	static int nbMots;
 	static int nbLettres;
-	static char[] tableauSortie = new char[tailleLigne];
+	static int nbSeparateurs;
+	static int tailleSeparateur;
+	static int nbEspacesComplementaires = 0;
+	static char[] tableauSortie = new char[tailleLigneComplete];
 
 	public static void main(String[] args) {
 		// TRAITEMENT :
@@ -25,37 +29,92 @@ public class AppJustification {
 
 		// 3 - compter le nombre de lettres (tout caractère différent de l'espace)
 		compterLettres();
+		System.out.println("il y a " + nbLettres + " lettres");
 		
-		// 4 - définir le nombre d'espaces total
+		// 4 - définir le nombre de séparateurs
+		nbSeparateurs = nbMots - 1;
+		System.out.println("il y a " + nbSeparateurs + " separateurs");
 
-		// 5 - définir le nombre de séparateurs
-
-		// 6 - définir la taille du séparateur
-
-		// 7 - fabriquer le texte justifié (tableauSortie)
+		// 5 - définir la taille du séparateur
+		tailleSeparateur = (tailleLigneUtile - nbLettres) / nbSeparateurs;
+		System.out.println("taille separateur :  " + tailleSeparateur);
+		
+		nbEspacesComplementaires = tailleLigneUtile - nbLettres - (nbSeparateurs * tailleSeparateur);
+		System.out.println("nb espaces complémentaires :  " + nbEspacesComplementaires);
+		
+		// 6 - fabriquer le texte justifié (tableauSortie)
+		
+		int indexEcriture = 0;
+		
 		// ecrire la marge de gauche
-
-		// répéter
-
-		// ecrire un mot : une séquence de lettres sans espace
-
-		// ecrire un séparateur : quand j'ai un espace qui suit une lettre
-
-		// jusqu'à la fin du texte
+		for(int i = 0 ; i < tailleMarges; i++)
+		{
+			tableauSortie[i] = '*';
+			indexEcriture++;
+		}		
+		
+		
+		// écriture de la ligne utile :
+		int nbMotsEcrits = 0;
+		
+		for (int i = 0; i < tableauEntree.length; i++)
+		{
+			// ecriture d'un caractère :
+			if (tableauEntree[i] != ' ')
+			{
+				tableauSortie[indexEcriture] = tableauEntree[i];
+				indexEcriture++;
+			}
+			// ecrire un séparateur : quand j'ai un espace qui suit une lettre et que je suis avant le dernier mot
+			if (tableauEntree[i] == ' ' && i > 0 && tableauEntree[i-1] != ' ')
+			{
+				nbMotsEcrits++;
+				// pas de séprateur après le dernier mot :
+				if (nbMotsEcrits < nbMots) 
+				{	
+					for (int j = 0; j < tailleSeparateur; j++)
+					{
+						tableauSortie[indexEcriture] = ' ';
+						indexEcriture++;
+					}
+					// affichage espaces complémentaires :
+					if (nbEspacesComplementaires > 0)
+					{
+						tableauSortie[indexEcriture] = ' ';
+						indexEcriture++;
+						nbEspacesComplementaires--;
+					}
+					
+				}
+			}
+		}
 
 		// ecrire la marge de droite
+		for(int i = 0 ; i < tailleMarges; i++)
+		{
+			tableauSortie[indexEcriture] = '*';
+			indexEcriture++;
+		}	
 		
 		// 8 - afficher le résultat (tableauSortie)
 		for(int i = 0; i < tableauSortie.length; i++)
 		{
-			System.out.println(tableauSortie[i]);
+			System.out.print(tableauSortie[i]);
 		}
+		System.out.println();
 
 	}
 
 	private static void compterLettres() {
-		// TODO faire le job....
+		nbLettres = 0;
 		
+		for(int i = 0; i < tableauEntree.length; i++)
+		{
+			if (tableauEntree[i] != ' ')
+			{
+				nbLettres ++;
+			}			
+		}
 	}
 
 	private static void compterMotsV2() {
