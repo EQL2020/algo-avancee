@@ -1,3 +1,4 @@
+import java.util.EnumSet;
 import java.util.Scanner;
 
 public class ExempleAnalyse {
@@ -6,8 +7,22 @@ public class ExempleAnalyse {
 	int scoreOrdi = 0;
 	int scoreJoueur = 0;
 	
+	enum Couleur
+	{
+		bleu,
+		rouge,
+		vert
+	}
+	
 	public static void main(String[] args) {
 
+		for(Couleur c : EnumSet.allOf(Couleur.class))
+		{
+			System.out.println(c);
+			
+		}
+
+		
 		nomJoueur = identifierJoueur();
 
 		do {

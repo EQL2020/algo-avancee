@@ -3,22 +3,30 @@ public class Factorielle {
 
 	public static void main(String[] args) {
 	
-		//fact(10) 10!
-		// 10*9*8*7*6*5*4*3*2*1
-		// 0!  =   1
-		
-		// TODO Auto-generated method stub
-
+		System.out.println(factorielleR(10));
+	
 	}
 	
 	public static int factorielle(int n)
 	{
-		return 0;
+		int resultat = 1;
+		for(int i = n; i > 1; i--)
+		{
+			resultat = resultat * i;
+		}
+		return resultat;
 	}
 	
 	public static int factorielleR(int n)
 	{
-		return 0;
+		if (n>1)
+		{
+			return n * factorielleR(n-1);
+		}
+		else
+		{
+			return 1;
+		}
 	}
 	
 
